@@ -1,0 +1,85 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100vh;
+  background: linear-gradient(97.54deg, rgba(34, 141, 210, 0.54) 7.79%, rgba(34, 141, 210, 0.1) 100.46%);
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.logoSection {
+  width: 100%;
+  .logo {
+    position: relative;
+    width: 100%;
+    height: 60px;
+    margin: 20px 0;
+  }
+  // .carroussel {
+  //   display: none;
+  //   @media screen and (min-width: 768px) {
+  //     display: block;
+  //   }
+  // }
+  .imageContainer {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+  }
+  @media screen and (min-width: 768px) {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    .logo {
+      display: none;
+    }
+    .imageContainer {
+      align-self: center;
+    }
+  }
+}
+
+.infoSection {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-items: center;
+  background-color: white;
+  padding: 20px;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
+
+  .logoInfo {
+    display: none;
+  }
+
+  button {
+    width: 50%;
+    height: 40px;
+    border-radius: 6px;
+    background-color: #c91c8e;
+    border: none;
+    color: white;
+    justify-self: self-end;
+  }
+  @media screen and (min-width: 768px) {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    .logoInfo {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 60px;
+      margin: 20px 0;
+    }
+    p {
+      font-size: 1.4rem;
+      width: 80%;
+    }
+
+    button {
+      justify-self: center;
+    }
+  }
+}

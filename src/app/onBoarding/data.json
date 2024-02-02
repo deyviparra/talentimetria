@@ -1,0 +1,45 @@
+{
+  "logo": "/logo.png",
+  "pages": [
+    {
+      "text": "Bienvenido a la Prueba ESTILOS PERSONALES!!",
+      "image": "/ob-1.png",
+      "carrouselText": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed"
+      ],
+      "textButton": "Siguiente"
+    },
+    {
+      "text": "Por favor, lea cuidadosamente, estas instrucciones antes de empezar. Escriba su nombre en el espacio indicado al igual que la información relacionada con su sexo, edad, número de identificación, correo electrónico y demás datos solicitados",
+      "image": "/ob-2.png",
+      "carrouselText": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed"
+      ],
+      "textButton": "Siguiente"
+    },
+    {
+      "text": "A continuación, encontrará 28 grupos de palabras, en cada grupo escoja UNA palabra que más lo(a) represente y márquela en la columna MAS y escoja UNA palabra que menos lo(a) represente y márquela en la columna MENOS.",
+      "image": "/ob-3.png",
+      "carrouselText": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed"
+      ],
+      "textButton": "Siguiente"
+    },
+    {
+      "text": "Gracias por realizar la prueba de ESTILOS PERSONALES. La persona que lo contactó para realizarla le informará los pasos a seguir.\n\n Cordial saludo.",
+      "image": "/ob-4.png",
+      "carrouselText": [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed",
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vitae diam eget risus varius blandit sit amet non magna. Sed"
+      ],
+      "textButton": "Comenzar test"
+    }
+  ]
+}

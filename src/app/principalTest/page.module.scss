@@ -1,0 +1,185 @@
+.container {
+  .content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10px;
+    background: linear-gradient(103.06deg, rgba(242, 207, 156, 0.46) 6.47%, rgba(133, 191, 228, 0.19) 82.86%);
+
+    h2 {
+      font-family: Roboto;
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 36px;
+      letter-spacing: 0em;
+      text-align: left;
+      width: 100%;
+      color: #505050;
+    }
+    .imgContainerExample {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      border-radius: 12px;
+      margin: 0 30px;
+    }
+    button {
+      width: 100%;
+      height: 40px;
+      border-radius: 6px;
+      background-color: #c91c8e;
+      border: none;
+      font-size: 24px;
+      color: white;
+      justify-self: self-end;
+      max-width: 250px;
+    }
+  }
+
+  .contentTest {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 20px;
+    gap: 10px;
+
+    .section {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      padding: 0 20px;
+      gap: 8px;
+      padding-top: 10px;
+      background: #fff6ea;
+      margin: auto 14px;
+      border-radius: 12px;
+      width: 100%;
+      min-height: calc(100svh - 70px);
+      .buttons {
+        display: flex;
+        width: 100%;
+        max-width: 450px;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        .back {
+          min-width: 80px;
+          height: 40px;
+          border-radius: 6px;
+          border-color: #c91c8e;
+          border-width: 3px;
+          color: #c91c8e;
+          font-size: 24px;
+          padding: 0 18px;
+          background-color: transparent;
+          border-style: solid;
+        }
+        .next {
+          min-width: 120px;
+          max-width: 200px;
+          font-size: 24px;
+          height: 40px;
+          border-radius: 6px;
+          background-color: #c91c8e;
+          border: none;
+          font-size: 24px;
+          color: white;
+          justify-self: self-end;
+          max-width: 250px;
+          padding: 0 18px;
+        }
+        .disableButton {
+          background-color: #d4d4d4;
+        }
+      }
+    }
+  }
+}
+.progressContainer {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 0;
+  p {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+  .progressBar {
+    border-radius: 16px;
+    width: 100%;
+    height: 30px;
+  }
+  .progressBar::-webkit-progress-bar {
+    border-radius: 16px;
+    background-color: #eeeeee;
+  }
+  .progressBar::-webkit-progress-value {
+    background-color: #c91c8e;
+    border-radius: 16px;
+  }
+  .progressBar::-moz-progress-bar {
+    border-radius: 16px;
+    background-color: #eeeeee;
+  }
+}
+
+.optionComponent {
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  .title {
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
+    background-color: #82ad44ad;
+    height: 55px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 10px;
+
+    .empty {
+      width: 50%;
+    }
+    p {
+      width: 25%;
+      text-align: center;
+      color: white;
+      font-weight: 700;
+    }
+  }
+
+  .optionsContainer {
+    border-bottom-left-radius: 16px;
+    border-bottom-right-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px 10px;
+    background-color: white;
+    .option {
+      background-color: #f3f3f3;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 36px;
+      padding-left: 10px;
+      border-radius: 6px;
+      label {
+        width: 50%;
+      }
+      input {
+        width: 25%;
+        height: 24px;
+      }
+    }
+  }
+}

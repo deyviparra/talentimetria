@@ -1,0 +1,50 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100svh;
+  .logo {
+    height: 200px;
+    padding: 20px;
+  }
+  .background {
+    position: relative;
+    align-self: center;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 500px;
+    div {
+      width: 50%;
+      filter: blur(50px);
+      margin: 0;
+      height: 115px;
+    }
+    h1 {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      color: white;
+      font-size: 50px;
+    }
+    .pink {
+      background-color: #c91c8e;
+      border-top-left-radius: 50%;
+    }
+    .blue {
+      background-color: #228dd2;
+      border-top-right-radius: 50%;
+    }
+    .yellow {
+      background-color: #e9a138;
+      border-bottom-left-radius: 50%;
+    }
+    .green {
+      background-color: #82ad44;
+      border-bottom-right-radius: 50%;
+    }
+  }
+}
