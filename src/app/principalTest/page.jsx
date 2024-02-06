@@ -11,6 +11,7 @@ const PrincipalTest = () => {
   const [disableButton, setDisableButton] = useState(true)
   const [currentQuestion, setCurrentQuestion] = useState({})
   const [progress, setProgress] = useState(0)
+  const [loader, setLoader] = useState(false)
   const [questionId, setQuestionId] = useState(0)
   const [questionResponse, setQuestionResponse] = useState({
     mas_array: [],
@@ -138,7 +139,7 @@ const PrincipalTest = () => {
       setCurrentQuestion(testData.questions[questionId + 1])
       checkButton(questionResponse.mas_array, questionResponse.menos_array, questionId + 1)
     } else {
-
+      setLoader(true)
       const body = {
         name_input: userData.name,
         email_input: userData.email,
@@ -152,45 +153,57 @@ const PrincipalTest = () => {
         edad_input: userData.age,
       }
 
-        const response = await fetch(ENDPOINT, {  
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        })
+      const response = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT',
+          'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept',
+          'Access-control-Allow-Credentials': 'true',
+        },
+        body: JSON.stringify(body),
+      })
 
-        const data = await response.json()
-        console.log(data)
-        if (data?.message === 'email send successfully') {
-          router.push('/result')
-        }
-    
+      const data = await response.json()
+      console.log(data)
+      if (data?.message === 'email send successfully') {
+        router.push('/result')
+      }
     }
   }
 
   const Test = () => {
     return (
-      <div className={s.contentTest}>
-        <Image src='/logo.png' width={250} height={50} alt='Logo de talentimetria'></Image>
+      <>
+        {loader ? (
+          <div className={s.loader}></div>
+        ) : (
+          <div className={s.contentTest}>
+            <Image src='/logo.png' width={250} height={50} alt='Logo de talentimetria'></Image>
 
-        <div className={s.section}>
-          <p>En cada uno de los 28 grupos de palabras, escoja la palabra que más lo(a) represente y márquela en la columna más y escoja una palabra que menos lo(a) represente y márquela en la columna menos.</p>
-          <OptionSelector question={currentQuestion} />
-          <div className={s.buttons}>
-            <button onClick={handlePrev} className={s.back}>
-              Atrás
-            </button>
-            <button
-              onClick={handleNext}
-              className={`${s.next} ${disableButton && s.disableButton}`}
-              disabled={disableButton}>
-              Siguiente
-            </button>
+            <div className={s.section}>
+              <p>
+                En cada uno de los 28 grupos de palabras, escoja la palabra que más lo(a) represente y márquela en la
+                columna más y escoja una palabra que menos lo(a) represente y márquela en la columna menos.
+              </p>
+              <OptionSelector question={currentQuestion} />
+              <div className={s.buttons}>
+                <button onClick={handlePrev} className={s.back}>
+                  Atrás
+                </button>
+                <button
+                  onClick={handleNext}
+                  className={`${s.next} ${disableButton && s.disableButton}`}
+                  disabled={disableButton}>
+                  {progress < 96 ? 'Siguiente' : 'Finalizar'}
+                </button>
+              </div>
+              <ProgressBar value={progress} />
+            </div>
           </div>
-          <ProgressBar value={progress} />
-        </div>
-      </div>
+        )}
+      </>
     )
   }
 

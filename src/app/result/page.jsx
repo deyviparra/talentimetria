@@ -12,8 +12,7 @@ const Page = () => {
           <h1>¡Gracias!</h1>
           <Image src='/thank-you.png' width={300} height={300} alt='Logo de talentimetria'></Image>
           <p>¡Gracias por completar el test!</p>
-
-          <Link href='/' className={s.button}>Volver</Link>
+          <Link href='/' className={s.button}>Finalizar</Link>
         </div>
       </div>
     </div>
