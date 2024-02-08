@@ -166,7 +166,6 @@ const PrincipalTest = () => {
       })
 
       const data = await response.json()
-      console.log(data)
       if (data?.message === 'email send successfully') {
         router.push('/result')
       }
@@ -177,7 +176,12 @@ const PrincipalTest = () => {
     return (
       <>
         {loader ? (
-          <div className={s.loader}></div>
+          <div className={s.loader}>
+            <Image src='/loader.gif' 
+            
+            height={300} width={300}
+            alt='Cargando'></Image>
+          </div>
         ) : (
           <div className={s.contentTest}>
             <Image src='/logo.png' width={250} height={50} alt='Logo de talentimetria'></Image>
