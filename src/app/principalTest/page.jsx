@@ -177,10 +177,7 @@ const PrincipalTest = () => {
       <>
         {loader ? (
           <div className={s.loader}>
-            <Image src='/loader.gif' 
-            
-            height={300} width={300}
-            alt='Cargando'></Image>
+            <Image src='/loader.gif' height={300} width={300} alt='Cargando'></Image>
           </div>
         ) : (
           <div className={s.contentTest}>
@@ -193,9 +190,12 @@ const PrincipalTest = () => {
               </p>
               <OptionSelector question={currentQuestion} />
               <div className={s.buttons}>
-                <button onClick={handlePrev} className={s.back}>
-                  Atrás
-                </button>
+                {progress !== 0 ? (
+                  <button onClick={handlePrev} className={s.back}>
+                    Atrás
+                  </button>
+                )
+              : <div/>}
                 <button
                   onClick={handleNext}
                   className={`${s.next} ${disableButton && s.disableButton}`}

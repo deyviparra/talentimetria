@@ -2,7 +2,7 @@
   .content {
     display: flex;
     flex-direction: column;
-    min-height: 100svh;
+    min-height: 100dvh;
     justify-content: space-around;
     align-items: center;
     padding: 10px 20px;
@@ -50,7 +50,7 @@
   .contentTest {
     display: flex;
     flex-direction: column;
-    min-height: 100svh;
+    min-height: 100dvh;
     justify-content: space-around;
     align-items: center;
     padding: 10px 20px;
@@ -70,7 +70,7 @@
       margin: auto 14px;
       border-radius: 12px;
       width: 100%;
-      min-height: calc(100svh - 70px);
+      min-height: calc(100dvh - 70px);
       .buttons {
         display: flex;
         width: 100%;
