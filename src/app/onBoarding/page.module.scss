@@ -1,7 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1fr;
-  height: 100vh;
+  height: 100dvh;
   background: linear-gradient(97.54deg, rgba(34, 141, 210, 0.54) 7.79%, rgba(34, 141, 210, 0.1) 100.46%);
   @media screen and (min-width: 768px) {
     grid-template-columns: 1fr 1fr;

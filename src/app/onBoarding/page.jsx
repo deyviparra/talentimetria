@@ -20,10 +20,6 @@ const Page = () => {
     }
   }
 
-  
-
-
-
   return (
     <main className={s.container}>
       <section className={s.logoSection}>
@@ -42,7 +38,7 @@ const Page = () => {
         <div className={s.logoInfo}>
           <Image src={data?.logo} alt='' objectFit='contain' fill />
         </div>
-        <p>{pageInfo?.text}</p>
+        <p dangerouslySetInnerHTML={{__html:pageInfo?.text}}></p>
         <button onClick={handleNext}>{pageInfo?.textButton}</button>
       </section>
     </main>
