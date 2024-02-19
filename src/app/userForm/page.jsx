@@ -95,6 +95,14 @@ const UserForm = () => {
 
   return (
     <div className={s.container}>
+
+    <div className={s.desktopView} >
+      <Image src='/ob-1.png' width={400} height={400} alt='Imagen de talentimetria' />
+      <p >
+        Ingresa los datos a continuación
+      </p>
+    </div>
+
       <div className={s.formSection}>
         <div className={s.logo}>
           <Image src='/logo.png' width={250} height={50} alt='Logo de talentimetria' />
