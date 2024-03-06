@@ -107,6 +107,19 @@
           border-radius: 8px;
           border: 1px solid #ccc;
           outline: none;
+          top: 1px;
+        }
+        select::part(listbox){
+          background-color: red;
+          color: #c91c8e;
+          overflow-y: auto;
+        }
+
+        .alert{
+          color: red;
+          font-size: 12px;
+          margin-top: 4px;
+        
         }
       }
       button {
@@ -117,6 +130,7 @@
         border: none;
         color: white;
         align-self: flex-end;
+        cursor: pointer;
       }
     }
   }

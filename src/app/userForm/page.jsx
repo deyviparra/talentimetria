@@ -46,6 +46,14 @@ const UserForm = () => {
       message: 'La empresa es requerida',
       status: false,
     },
+    sector: {
+      message: 'El sector económico es requerido',
+      status: false,
+    },
+    position: {
+      message: 'El cargo u oficio es requerido',
+      status: false,
+    },
   })
   const countries = contriesJson.countries
 
@@ -67,13 +75,13 @@ const UserForm = () => {
     if (!form.address) keys.push('address')
     if (!form.country) keys.push('country')
     if (!form.business) keys.push('business')
-    console.log(keys)
+    if (!form.sector) keys.push('sector')
+    if (!form.position) keys.push('position')
     let alertAux = { ...alertInput }
     const alertKeys = Object.keys(alertAux)
     alertKeys.forEach((key) => {
       alertAux[key].status = false
     })
-    console.log(alertAux)
     keys.forEach((key) => {
       alertAux[key].status = true
     })
@@ -95,13 +103,10 @@ const UserForm = () => {
 
   return (
     <div className={s.container}>
-
-    <div className={s.desktopView} >
-      <Image src='/ob-1.png' width={400} height={400} alt='Imagen de talentimetria' />
-      <p >
-        Ingresa los datos a continuación
-      </p>
-    </div>
+      <div className={s.desktopView}>
+        <Image src='/ob-1.png' width={400} height={400} alt='Imagen de talentimetria' />
+        <p>Ingresa los datos a continuación</p>
+      </div>
 
       <div className={s.formSection}>
         <div className={s.logo}>
@@ -228,6 +233,56 @@ const UserForm = () => {
               placeholder='Ingresa la empresa donde trabajas'
             />
             <p className={s.alert}>{alertInput['business'].status && alertInput['business'].message}</p>
+          </div>
+          <div className={s.textInput}>
+            <label>
+              Sector económico <span>*</span>
+            </label>
+            <select
+              name='sector'
+              defaultValue=''
+              placeholder='Selecciona el sector económico'
+              onChange={handleOnchangeInput}>
+              <option value='' disabled hidden>
+                Selecciona el sector económico
+              </option>
+              <option value='Comercio'>Comercio</option>
+              <option value='Industria'>Industria</option>
+              <option value='Servicios'>Servicios</option>
+              <option value='Construcción'>Construcción</option>
+              <option value='Transporte'>Transporte</option>
+              <option value='Otro'>Otro</option>
+            </select>
+            <p className={s.alert}>{alertInput['sector'].status && alertInput['sector'].message}</p>
+          </div>
+          <div className={s.textInput}>
+            <label>
+              Cargo u oficio <span>*</span>
+            </label>
+            <select
+              name='position'
+              defaultValue=''
+              placeholder='Selecciona el cargo u oficio'
+              onChange={handleOnchangeInput}>
+              <option value='' disabled hidden>
+                Selecciona el cargo u oficio
+              </option>
+              <option value='Administrador'>Administrador</option>
+              <option value='Auxiliar de oficina'>Auxiliar de oficina</option>
+              <option value='Bachiller'>Bachiller</option>
+              <option value='Contador público'>Contador público</option>
+              <option value='Economista'>Economista</option>
+              <option value='Estudiante'>Estudiante</option>
+              <option value='Gerente'>Gerente</option>
+              <option value='Ingeniero'>Ingeniero</option>
+              <option value='Médico u odontólogo'>Médico u odontólogo</option>
+              <option value='Enfermera'>Enfermera</option>
+              <option value='Técnico medio'>Técnico medio</option>
+              <option value='Psicólogo'>Psicólogo</option>
+              <option value='Financiero'>Financiero</option>
+              <option value='Otro'>Otro</option>
+            </select>
+            <p className={s.alert}>{alertInput['position'].status && alertInput['position'].message}</p>
           </div>
           <button onClick={handleSubmit}>Siguiente</button>
         </form>

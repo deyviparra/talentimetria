@@ -4,6 +4,8 @@ import s from './page.module.scss'
 import Image from 'next/image'
 import testData from './data.json'
 import { useRouter } from 'next/navigation'
+import { saveUser } from '../../actions/users'
+// import { db } from '../../lib/firebase'
 
 const PrincipalTest = () => {
   const [userData, setUserData] = useState({})
@@ -17,8 +19,23 @@ const PrincipalTest = () => {
     mas_array: [],
     menos_array: [],
   })
-  const ENDPOINT = 'https://disc-talentimetria.herokuapp.com/disc'
+  const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT
   const router = useRouter()
+
+  const saveUserDB = async () => {
+    const userData = JSON.parse(localStorage.getItem('formTalentimetria'))
+    const user = {
+      ...userData,
+      date: new Date(),
+    }
+    try {
+      const result = await saveUser({ user })
+      console.log(result)
+      return 'user added successfully'
+    } catch (error) {
+      console.error('Error saving user: ', error)
+    }
+  }
 
   useEffect(() => {
     const data = localStorage.getItem('formTalentimetria')
@@ -164,9 +181,12 @@ const PrincipalTest = () => {
         },
         body: JSON.stringify(body),
       })
-
+      console.log(response)
+      console.log(response.ok)
       const data = await response.json()
-      if (data?.message === 'email send successfully') {
+      console.log(data)
+      if (response.ok) {
+        saveUserDB()
         router.push('/result')
       }
     }
@@ -194,8 +214,9 @@ const PrincipalTest = () => {
                   <button onClick={handlePrev} className={s.back}>
                     Atrás
                   </button>
-                )
-              : <div/>}
+                ) : (
+                  <div />
+                )}
                 <button
                   onClick={handleNext}
                   className={`${s.next} ${disableButton && s.disableButton}`}
