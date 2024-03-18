@@ -11,6 +11,10 @@ export async function POST(request) {
   const body = await request.json()
   const URL = request.nextUrl.origin
 
+  const file = await fs.readFile(`${process.cwd()}/public/5zuy99.pdf`)
+
+  console.log('file', file)
+
   const { docId, email } = body
   try {
     const browser = await puppeteer.launch({
@@ -32,7 +36,7 @@ export async function POST(request) {
 
     //generate pdf
     await page.pdf({
-      path: `${process.cwd()}/public/${randomName}.pdf`,
+      path: `./public/${randomName}.pdf`,
       format: 'letter',
       displayHeaderFooter: true,
       scale: 0.7,
