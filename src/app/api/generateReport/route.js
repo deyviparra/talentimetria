@@ -14,11 +14,11 @@ export async function POST(request) {
   const { docId, email } = body
   try {
     const browser = await puppeteer.launch({
-      executablePath: await chromium.executablePath(`https://talentimetria.com/chromium-v122.0.0-pack.tar`),
-      headless: chromium.headless,
-      ignoreHTTPSErrors: true,
       args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
       defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(`https://github.com/Sparticuz/chromium/releases/download/v116.0.0/chromium-v116.0.0-pack.tar`),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     })
     const page = await browser.newPage()
 
