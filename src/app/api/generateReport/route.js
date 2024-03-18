@@ -12,12 +12,6 @@ export async function POST(request) {
   const body = await request.json()
   const URL = request.nextUrl.origin
 
-  const file = await fs.readFile(
-    path.join(process.cwd(), 'public', 'test.pdf'),
-  )
-
-  console.log('file', file)
-
   const { docId, email } = body
   try {
     const browser = await puppeteer.launch({
@@ -40,7 +34,7 @@ export async function POST(request) {
 
     //generate pdf
     await page.pdf({
-      path: `${path.join(process.cwd(), 'public', randomName)}`,
+      path: `${path.join(process.cwd(), 'tmp', randomName)}`,
       format: 'letter',
       displayHeaderFooter: true,
       scale: 0.7,
@@ -84,8 +78,8 @@ export async function POST(request) {
       text: 'Hola, te enviamos el resultado de tu test DISC.',
       attachments: [
         {
-          filename: `${randomName}.pdf`,
-          path: `${path.join(process.cwd(), 'public', randomName)}`,
+          filename: `${randomName}`,
+          path: `${path.join(process.cwd(), 'tmp', randomName)}`,
           contentType: 'application/pdf',
         },
       ],
@@ -93,7 +87,7 @@ export async function POST(request) {
 
     console.log('Message sent: %s', info.messageId)
     //delete pdf
-    fs.unlinkSync(`${path.join(process.cwd(), 'public', randomName)}`)
+    fs.unlinkSync(`${path.join(process.cwd(), 'tmp', randomName)}`)
 
     return Response.json({ message: 'Hello World POST' })
   } catch (error) {
