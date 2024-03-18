@@ -11,7 +11,7 @@ export async function POST(request) {
   const body = await request.json()
   const URL = request.nextUrl.origin
 
-  const file = await fs.readFile(`${process.cwd()}/public/5zuy99.pdf`)
+  const file = await fs.readFile(`./public/5zuy99.pdf`)
 
   console.log('file', file)
 
