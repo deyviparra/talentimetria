@@ -34,7 +34,7 @@ export async function POST(request) {
 
     //generate pdf
     await page.pdf({
-      path: `${path.join(process.cwd(), 'public', randomName)}`,
+      path: `${path.join('/tmp', randomName)}`,
       format: 'letter',
       displayHeaderFooter: true,
       scale: 0.7,
@@ -79,7 +79,7 @@ export async function POST(request) {
       attachments: [
         {
           filename: `${randomName}`,
-          path: `${path.join(process.cwd(), 'public', randomName)}`,
+          path: `${path.join('/tmp', randomName)}`,
           contentType: 'application/pdf',
         },
       ],
