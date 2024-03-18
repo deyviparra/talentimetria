@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
 import { promises as fs } from 'fs';
 import nodemailer from 'nodemailer'
+import path from 'path';
 
 export async function GET(request) {
   return Response.json({ message: 'Hello World' })
@@ -11,7 +12,9 @@ export async function POST(request) {
   const body = await request.json()
   const URL = request.nextUrl.origin
 
-  const file = await fs.readFile(`/public/5zuy99.pdf`)
+  const file = await fs.readFile(
+    path.join(process.cwd(), 'public', 'test.pdf'),
+  )
 
   console.log('file', file)
 
