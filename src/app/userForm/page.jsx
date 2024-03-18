@@ -14,6 +14,10 @@ const UserForm = () => {
       message: 'El nombre es requerido',
       status: false,
     },
+    email: {
+      message: 'El email es requerido',
+      status: false,
+    },
     reason: {
       message: 'El motivo de consulta es requerido',
       status: false,
@@ -67,6 +71,7 @@ const UserForm = () => {
   const formValidation = () => {
     let keys = []
     if (!form.name) keys.push('name')
+    if (!form.email) keys.push('email')
     if (!form.reason) keys.push('reason')
     if (!form.dni) keys.push('dni')
     if (!form.gender) keys.push('gender')
@@ -120,6 +125,13 @@ const UserForm = () => {
             </label>
             <input type='text' name='name' onChange={handleOnchangeInput} placeholder='Ingresa tu nombre completo' />
             <p className={s.alert}>{alertInput['name'].status && alertInput['name'].message}</p>
+          </div>
+          <div className={s.textInput}>
+            <label>
+              Email <span>*</span>
+            </label>
+            <input type='text' name='email' onChange={handleOnchangeInput} placeholder='Ingresa tu email' />
+            <p className={s.alert}>{alertInput['email'].status && alertInput['email'].message}</p>
           </div>
           <div className={s.textInput}>
             <label>

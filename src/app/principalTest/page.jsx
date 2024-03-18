@@ -5,7 +5,6 @@ import Image from 'next/image'
 import testData from './data.json'
 import { useRouter } from 'next/navigation'
 import { saveUser } from '../../actions/users'
-// import { db } from '../../lib/firebase'
 
 const PrincipalTest = () => {
   const [userData, setUserData] = useState({})
@@ -22,15 +21,31 @@ const PrincipalTest = () => {
   const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT
   const router = useRouter()
 
-  const saveUserDB = async () => {
+  const sendEmail = (docId) => {
+    const body = {
+      docId,
+      email: userData.email,
+    }
+    fetch('/api/generateReport', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+   }
+
+  const saveUserDB = async (result) => {
     const userData = JSON.parse(localStorage.getItem('formTalentimetria'))
     const user = {
       ...userData,
       date: new Date(),
+      result,
     }
     try {
-      const result = await saveUser({ user })
-      console.log(result)
+      const docId = await saveUser({ user })
+      sendEmail(docId)
+      router.push(`/result`)
       return 'user added successfully'
     } catch (error) {
       console.error('Error saving user: ', error)
@@ -40,7 +55,7 @@ const PrincipalTest = () => {
   useEffect(() => {
     const data = localStorage.getItem('formTalentimetria')
     setUserData(JSON.parse(data))
-    setCurrentQuestion(testData.questions[questionId])
+    setCurrentQuestion(testData.questions[0])
     setQuestionResponse({
       mas_array: new Array(testData.questions.length).fill(0),
       menos_array: new Array(testData.questions.length).fill(0),
@@ -181,13 +196,9 @@ const PrincipalTest = () => {
         },
         body: JSON.stringify(body),
       })
-      console.log(response)
-      console.log(response.ok)
       const data = await response.json()
-      console.log(data)
       if (response.ok) {
-        saveUserDB()
-        router.push('/result')
+        saveUserDB(data)
       }
     }
   }
