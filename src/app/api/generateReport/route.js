@@ -1,8 +1,7 @@
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer-core'
+import chromium from '@sparticuz/chromium-min'
 import fs from 'fs'
 import nodemailer from 'nodemailer'
-
-
 
 export async function GET(request) {
   return Response.json({ message: 'Hello World' })
@@ -15,11 +14,11 @@ export async function POST(request) {
   const { docId, email } = body
   try {
     const browser = await puppeteer.launch({
-      headless: true,
-      defaultViewport: {
-        width: 1920,
-        height: 1080,
-      },
+      executablePath: await chromium.executablePath(`https://talentimetria.com/chromium-v122.0.0-pack.tar`),
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+      args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
+      defaultViewport: chromium.defaultViewport,
     })
     const page = await browser.newPage()
 
@@ -60,22 +59,21 @@ export async function POST(request) {
 
     await browser.close()
 
-
     const transporter = nodemailer.createTransport({
-      service:'gmail', // Use `true` for port 465, `false` for all other ports
+      service: 'gmail', // Use `true` for port 465, `false` for all other ports
       auth: {
-        user: "administrador@talentimetria.com",
-        pass: process.env.EMAIL_PASSWORD
+        user: 'administrador@talentimetria.com',
+        pass: process.env.EMAIL_PASSWORD,
       },
-      tls : { rejectUnauthorized: false }
-    });
+      tls: { rejectUnauthorized: false },
+    })
 
     //send email
     const info = await transporter.sendMail({
-      from: "Talentimetria <administrador@talentimetria.com>",
+      from: 'Talentimetria <administrador@talentimetria.com>',
       to: `${email}, henry.ospina@talentimetria.com`,
-      subject: "Resultado de tu test DISC",
-      text: "Hola, te enviamos el resultado de tu test DISC.",
+      subject: 'Resultado de tu test DISC',
+      text: 'Hola, te enviamos el resultado de tu test DISC.',
       attachments: [
         {
           filename: `${randomName}.pdf`,
