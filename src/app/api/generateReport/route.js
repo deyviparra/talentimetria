@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
-import fs from 'fs'
+import { promises as fs } from 'fs';
 import nodemailer from 'nodemailer'
 
 export async function GET(request) {
@@ -32,7 +32,7 @@ export async function POST(request) {
 
     //generate pdf
     await page.pdf({
-      path: `./public/${randomName}.pdf`,
+      path: `${process.cwd()}/public/${randomName}.pdf`,
       format: 'letter',
       displayHeaderFooter: true,
       scale: 0.7,
@@ -77,7 +77,7 @@ export async function POST(request) {
       attachments: [
         {
           filename: `${randomName}.pdf`,
-          path: `./public/${randomName}.pdf`,
+          path: `${process.cwd()}/public/${randomName}.pdf`,
           contentType: 'application/pdf',
         },
       ],
@@ -85,7 +85,7 @@ export async function POST(request) {
 
     console.log('Message sent: %s', info.messageId)
     //delete pdf
-    fs.unlinkSync(`./public/${randomName}.pdf`)
+    fs.unlinkSync(`${process.cwd()}/public/${randomName}.pdf`)
 
     return Response.json({ message: 'Hello World POST' })
   } catch (error) {
