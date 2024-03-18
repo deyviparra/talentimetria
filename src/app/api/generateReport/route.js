@@ -34,7 +34,7 @@ export async function POST(request) {
 
     //generate pdf
     await page.pdf({
-      path: `${path.join(process.cwd(), 'tmp', randomName)}`,
+      path: `${path.join(process.cwd(), 'public', randomName)}`,
       format: 'letter',
       displayHeaderFooter: true,
       scale: 0.7,
@@ -79,7 +79,7 @@ export async function POST(request) {
       attachments: [
         {
           filename: `${randomName}`,
-          path: `${path.join(process.cwd(), 'tmp', randomName)}`,
+          path: `${path.join(process.cwd(), 'public', randomName)}`,
           contentType: 'application/pdf',
         },
       ],
@@ -87,7 +87,7 @@ export async function POST(request) {
 
     console.log('Message sent: %s', info.messageId)
     //delete pdf
-    fs.unlinkSync(`${path.join(process.cwd(), 'tmp', randomName)}`)
+    // fs.unlinkSync(`${path.join(process.cwd(), 'tmp', randomName)}`)
 
     return Response.json({ message: 'Hello World POST' })
   } catch (error) {
