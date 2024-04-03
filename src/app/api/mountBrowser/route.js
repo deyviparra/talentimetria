@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
-import path from 'path';
 
 export async function POST(request) {
 
