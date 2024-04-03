@@ -26,6 +26,13 @@ const PrincipalTest = () => {
       docId,
       email: userData.email,
     }
+    await fetch('/api/mountBrowser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
     const res = await fetch('/api/generateReport', {
       method: 'POST',
       headers: {
