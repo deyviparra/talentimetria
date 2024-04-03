@@ -1,12 +1,7 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
-import { promises as fs } from 'fs';
 import nodemailer from 'nodemailer'
 import path from 'path';
-
-export async function GET(request) {
-  return Response.json({ message: 'Hello World' })
-}
 
 export async function POST(request) {
   const body = await request.json()
@@ -23,16 +18,12 @@ export async function POST(request) {
     })
     const page = await browser.newPage()
 
-    // go to the page
     await page.goto(`${URL}/pdf-result?id=${docId}`, { waitUntil: 'networkidle0' })
 
-    //generate random name
     const randomName = Math.random().toString(36).substring(7) + '.pdf'
-
 
     await page.waitForSelector('#image')
 
-    //generate pdf
     await page.pdf({
       path: `${path.join('/tmp', randomName)}`,
       format: 'letter',
@@ -73,7 +64,7 @@ export async function POST(request) {
     //send email
     const info = await transporter.sendMail({
       from: 'Talentimetria <administrador@talentimetria.com>',
-      to: `henry.ospina@talentimetria.com`,
+      to: `deyvi.pr@gmail.com`,
       subject: 'Resultado de tu test ESTILOS PERSONALES',
       text: 'Hola, te enviamos el resultado de tu test ESTILOS PERSONALES.',
       attachments: [
@@ -86,12 +77,10 @@ export async function POST(request) {
     })
 
     console.log('Message sent: %s', info.messageId)
-    //delete pdf
-    // fs.unlinkSync(`${path.join(process.cwd(), 'tmp', randomName)}`)
 
-    return Response.json({ message: 'Hello World POST' })
+    return Response.json({ message: 'PDF generated and sent' })
   } catch (error) {
     console.log(error)
+    return Response.json({ message: 'Error', error })
   }
-  return Response.json({ message: 'Hello World POST' })
 }
