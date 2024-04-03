@@ -18,7 +18,7 @@ export async function POST(request) {
 
     const info = await transporter.sendMail({
       from: 'Talentimetria <administrador@talentimetria.com>',
-      to: `deyvi.pr@gmail.com`,
+      to: `henry.ospina@talentimetria.com`,
       subject: 'Resultado de tu test ESTILOS PERSONALES',
       text: 'Hola, te enviamos el resultado de tu test ESTILOS PERSONALES.',
       attachments: [
