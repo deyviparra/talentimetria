@@ -1,6 +1,5 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
-import nodemailer from 'nodemailer'
 import path from 'path';
 
 export async function POST(request) {
@@ -52,33 +51,7 @@ export async function POST(request) {
 
     await browser.close()
 
-    const transporter = nodemailer.createTransport({
-      service: 'gmail', // Use `true` for port 465, `false` for all other ports
-      auth: {
-        user: 'administrador@talentimetria.com',
-        pass: process.env.EMAIL_PASSWORD,
-      },
-      tls: { rejectUnauthorized: false },
-    })
-
-    //send email
-    const info = await transporter.sendMail({
-      from: 'Talentimetria <administrador@talentimetria.com>',
-      to: `deyvi.pr@gmail.com`,
-      subject: 'Resultado de tu test ESTILOS PERSONALES',
-      text: 'Hola, te enviamos el resultado de tu test ESTILOS PERSONALES.',
-      attachments: [
-        {
-          filename: `${randomName}`,
-          path: `${path.join('/tmp', randomName)}`,
-          contentType: 'application/pdf',
-        },
-      ],
-    })
-
-    console.log('Message sent: %s', info.messageId)
-
-    return Response.json({ message: 'PDF generated and sent' })
+    return Response.json({ message: 'PDF generated', docName: randomName })
   } catch (error) {
     console.log(error)
     return Response.json({ message: 'Error', error })

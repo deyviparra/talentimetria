@@ -21,18 +21,28 @@ const PrincipalTest = () => {
   const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT
   const router = useRouter()
 
-  const sendEmail = (docId) => {
+  const sendEmail = async (docId) => {
     const body = {
       docId,
       email: userData.email,
     }
-    fetch('/api/generateReport', {
+    const res = await fetch('/api/generateReport', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(body),
     })
+    const data = await res.json()
+    if (res.ok) {
+      fetch('/api/sendReport', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ docName: data.docName }),
+      })
+    }
    }
 
   const saveUserDB = async (result) => {
