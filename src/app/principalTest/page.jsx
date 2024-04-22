@@ -4,7 +4,7 @@ import s from './page.module.scss'
 import Image from 'next/image'
 import testData from './data.json'
 import { useRouter } from 'next/navigation'
-import { saveUser } from '../../actions/users'
+import { saveUser, saveLog } from '../../actions/users'
 
 const PrincipalTest = () => {
   const [userData, setUserData] = useState({})
@@ -22,6 +22,7 @@ const PrincipalTest = () => {
   const router = useRouter()
 
   const sendEmail = async (docId) => {
+    try{
     const body = {
       docId,
       email: userData.email,
@@ -33,6 +34,19 @@ const PrincipalTest = () => {
       },
       body: JSON.stringify(body),
     })
+    await new Promise((resolve) => setTimeout(resolve, 3000))
+    await fetch('/api/mountBrowser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    })
+  } catch (error) {
+    console.error('Error sending email: ', error)
+    saveLog({ log: { error, date: new Date() } })
+  }
+  finally {
     const res = await fetch('/api/generateReport', {
       method: 'POST',
       headers: {
@@ -50,6 +64,7 @@ const PrincipalTest = () => {
         body: JSON.stringify({ docName: data.docName }),
       })
     }
+  }
    }
 
   const saveUserDB = async (result) => {
@@ -65,9 +80,11 @@ const PrincipalTest = () => {
       router.push(`/result`)
       return 'user added successfully'
     } catch (error) {
+      await saveLog({ log: { error, date: new Date() } })
       console.error('Error saving user: ', error)
     }
   }
+
 
   useEffect(() => {
     const data = localStorage.getItem('formTalentimetria')
@@ -77,6 +94,7 @@ const PrincipalTest = () => {
       mas_array: new Array(testData.questions.length).fill(0),
       menos_array: new Array(testData.questions.length).fill(0),
     })
+    fetch(process.env.NEXT_PUBLIC_HEALTH)
   }, [])
 
   const checkButton = (mas_array, menos_array, id) => {

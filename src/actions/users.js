@@ -11,6 +11,15 @@ const saveUser = async ({ user }) => {
     console.error('Error adding document: ', error)
   }
 }
+const saveLog = async ({ log }) => {
+  try {
+    const docRef = await addDoc(collection(db, 'logs'), log)
+    console.log('Log added with ID: ', docRef.id)
+    return docRef.id
+  } catch (error) {
+    console.error('Error adding document: ', error)
+  }
+}
 
 const updateUser = async ({docRefId, data, key}) => { 
   try {
@@ -49,4 +58,4 @@ const getUser = async ({ docRefId }) => {
  }
  }
 
-export { saveUser, getUsers, updateUser, getUser }
+export { saveUser, getUsers, updateUser, getUser, saveLog }
