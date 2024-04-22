@@ -30,7 +30,7 @@ export async function POST(request) {
       ],
     })
 
-    console.log('Message sent: %s', info.messageId)
+    console.log('Email sent: %s', info.messageId)
 
     return Response.json({ message: 'Email sent' })
   } catch (error) {
