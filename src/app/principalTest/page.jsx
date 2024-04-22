@@ -34,10 +34,27 @@ const PrincipalTest = () => {
         },
         body: JSON.stringify(body),
       })
+      await new Promise((resolve) => setTimeout(resolve, 3000))
+      const res = await fetch('/api/generateReport', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        fetch('/api/sendReport', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ docName: data.docName }),
+        })
+      }
     } catch (error) {
       console.error('Error sending email: ', error)
       saveLog({ log: { error, date: new Date() } })
-    } finally {
       await new Promise((resolve) => setTimeout(resolve, 3000))
       const res = await fetch('/api/generateReport', {
         method: 'POST',
