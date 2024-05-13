@@ -1,12 +1,13 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
 import path from 'path';
+import { saveLog } from '../../../actions/users'
 
 export async function POST(request) {
   const body = await request.json()
   const URL = request.nextUrl.origin
 
-  const { docId, email } = body
+  const { docId } = body
   try {
     const browser = await puppeteer.launch({
       args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
@@ -53,7 +54,7 @@ export async function POST(request) {
 
     return Response.json({ message: 'PDF generated', docName: randomName })
   } catch (error) {
-    console.log(error)
+    saveLog({ log: { error: JSON.stringify(error), docId, date: new Date() } })
     return Response.json({ message: 'Error', error })
   }
 }

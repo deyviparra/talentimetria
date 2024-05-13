@@ -1,11 +1,12 @@
 import nodemailer from 'nodemailer'
-import path from 'path';
-
+import path from 'path'
+import { saveLog } from '../../../actions/users'
 
 export async function POST(request) {
   try {
     const body = await request.json()
-    const { docName } = body
+    const { docName, emailTest = '' } = body
+    const EMAIL_TO = `henry.ospina@talentimetria.com`
 
     const transporter = nodemailer.createTransport({
       service: 'gmail', // Use `true` for port 465, `false` for all other ports
@@ -18,7 +19,7 @@ export async function POST(request) {
 
     const info = await transporter.sendMail({
       from: 'Talentimetria <administrador@talentimetria.com>',
-      to: `henry.ospina@talentimetria.com`,
+      to: emailTest || EMAIL_TO,
       subject: 'Resultado de tu test ESTILOS PERSONALES',
       text: 'Hola, te enviamos el resultado de tu test ESTILOS PERSONALES.',
       attachments: [
@@ -34,7 +35,7 @@ export async function POST(request) {
 
     return Response.json({ message: 'Email sent' })
   } catch (error) {
-    console.log(error)
+    saveLog({ log: { error: JSON.stringify(error), date: new Date() } })
     return Response.json({ message: 'Error sending email', error })
   }
 }

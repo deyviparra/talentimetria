@@ -1,0 +1,119 @@
+{
+    "questions": [
+        {
+            "id": 1,
+            "options": ["ENTUSIASTA", "RÁPIDO / A", "LÓGICO / A", "APACIBLE"]
+        },
+        {
+            "id": 2,
+            "options": ["CAUTELOSO", "DECIDIDO / A", "RECEPTIVO /A", "BONDADOSO"]
+        },
+        {
+            "id": 3,
+            "options": ["AMIGABLE", "PRECISO / A", "FRANCO / A", "TRANQUILO"]
+        },
+        {
+            "id": 4,
+            "options": ["ELOCUENTE", "CONTROLADO", "TOLERANTE", "DECISIVO / A"]
+        },
+        {
+            "id": 5,
+            "options": ["ATREVIDO / A", "CONCIENZUDO", "COMUNICATIVO", "MODERADO"]
+        },
+        {
+            "id": 6,
+            "options": ["AMENO / A", "INGENIOSO", "INVESTIGADOR", "ACEPTA RIESGOS"]
+        },
+        {
+            "id": 7,
+            "options": ["EXPRESIVO / A", "CUIDADOSO", "DOMINANTE", "SENSIBLE"]
+        },
+        {
+            "id": 8,
+            "options": ["EXTROVERTIDO", "PRECAVIDO", "CONSTANTE", "IMPACIENTE"]
+        },
+        {
+            "id": 9,
+            "options": ["DISCRETO", "COMPLACIENTE", "ENCANTADOR", "INSISTENTE"]
+        },
+        {
+            "id": 10,
+            "options": ["VALEROSO / A", "ANIMA A LOS DEMAS", "PACÍFICO / A", "PERFECCIONISTA"]
+        },
+        {
+            "id": 11,
+            "options": ["RESERVADO", "ATENTO /A", "OSADO / A", "ALEGRE"]
+        },
+        {
+            "id": 12,
+            "options": ["ESTIMULANTE", "GENTIL", "PERCEPTIVO", "INDEPENDIENTE"]
+        },
+        {
+            "id": 13,
+            "options": ["COMPETITIVO", "CONSIDERADO", "ALEGRE", "SAGAZ"]
+        },
+        {
+            "id": 14,
+            "options": ["METICULOSO / A", "OBEDIENTE", "IDEAS FIRMES", "ALENTADOR / A"]
+        },
+        {
+            "id": 15,
+            "options": ["POPULAR", "REFLEXIVO / A", "TENAZ", "CALMADO / A"]
+        },
+        {
+            "id": 16,
+            "options": ["ANALÍTICO", "AUDAZ", "LEAL", "PROMOTOR"]
+        },
+        {
+            "id": 17,
+            "options": ["SOCIABLE", "PACIENTE", "SUFICIENTE", "CERTERO / A"]
+        },
+        {
+            "id": 18,
+            "options": ["ADAPTABLE", "RESUELTO / A", "PREVENIDO", "VIVAZ"]
+        },
+        {
+            "id": 19,
+            "options": ["AGRESIVO / A", "IMPETUOSO", "AMISTOSO / A", "DISCERNIENTE"]
+        },
+        {
+            "id": 20,
+            "options": ["DE TRATO FACIL", "COMPASIVO", "CAUTO", "HABLA DIRECTO"]
+        },
+        {
+            "id": 21,
+            "options": ["EVALUADOR", "GENEROSO", "ANIMADO", "PERSISTENTE"]
+        },
+        {
+            "id": 22,
+            "options": ["IMPULSIVO / A", "CUIDA LOS DETALLES", "ENÉRGICO", "TRANQUILO / A"]
+        },
+        {
+            "id": 23,
+            "options": ["SOCIABLE", "SISTEMÁTICO", "VIGOROSO", "TOLERANTE"]
+        },
+        {
+            "id": 24,
+            "options": ["CAUTIVADOR", "CONTENTO", "EXIGENTE", "APEGADO A LAS NORMAS"]
+        },
+        {
+            "id": 25,
+            "options": ["LE AGRADA DISCUTIR", "METÓDICO", "COMEDIDO", "DESENVUELTO"]
+        },
+        {
+            "id": 26,
+            "options": ["JOVIAL", "PRECISO / A", "DIRECTO / A", "ECUÁNIME"]
+        },
+        {
+            "id": 27,
+            "options": ["INQUIETO / A", "AMABLE", "ELOCUENTE", "CUIDADOSO"]
+        },
+        {
+            "id": 28,
+            "options": ["PRUDENTE", "PIONERO", "ESPONTÁNEO", "COLABORADOR"]
+        }
+    ],
+    "version": "1.0.0",
+    "name": "Test",
+    "description": "Test"
+}

@@ -6,17 +6,30 @@ import testData from './data.json'
 import { useRouter } from 'next/navigation'
 import { saveUser, saveLog } from '../../actions/users'
 
-const PrincipalTest = () => {
-  const [userData, setUserData] = useState({})
+const TestModeOn = () => {
+  const [userData, setUserData] = useState({
+    "name": "Deyvi Andres Parra",
+    "email": "deyvi.pr@gmail.com",
+    "dni": "1037640916",
+    "age": "28",
+    "address": "carrera 27 aa #36 s-151",
+    "country": "Colombia",
+    "business": "proveedor 1",
+    "reason": "Valoración de personal o potencial",
+    "gender": "male",
+    "career": "Empleado",
+    "sector": "Comercio",
+    "position": "Ingeniero"
+})
   const [instructions, setInstructions] = useState(true)
   const [disableButton, setDisableButton] = useState(true)
   const [currentQuestion, setCurrentQuestion] = useState({})
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress] = useState(100)
   const [loader, setLoader] = useState(false)
   const [questionId, setQuestionId] = useState(0)
   const [questionResponse, setQuestionResponse] = useState({
-    mas_array: [],
-    menos_array: [],
+    mas_array: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
+    menos_array: [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
   })
   const ENDPOINT = process.env.NEXT_PUBLIC_ENDPOINT
   const router = useRouter()
@@ -25,7 +38,8 @@ const PrincipalTest = () => {
     try {
       const body = {
         docId,
-        email: userData.email
+        email: userData.email,
+        emailTest: "deyvi.pr@gmail.com",
       }
       const browserMount = await fetch('/api/mountBrowser', {
         method: 'POST',
@@ -106,16 +120,11 @@ const PrincipalTest = () => {
   }
 
   useEffect(() => {
-    const data = localStorage.getItem('formTalentimetria')
-    setUserData(JSON.parse(data))
-    setCurrentQuestion(testData.questions[0])
-    setQuestionResponse({
-      mas_array: new Array(testData.questions.length).fill(0),
-      menos_array: new Array(testData.questions.length).fill(0),
-    })
+    setCurrentQuestion(testData.questions[testData.questions.length - 1])
     fetch(process.env.NEXT_PUBLIC_HEALTH)
   }, [])
 
+  
   const checkButton = (mas_array, menos_array, id) => {
     if (mas_array[id] != 0 && menos_array[id] != 0 && mas_array[id] != menos_array[id]) {
       setDisableButton(false)
@@ -300,4 +309,4 @@ const PrincipalTest = () => {
   return <div className={s.container}>{instructions ? <Instructions /> : <Test />}</div>
 }
 
-export default PrincipalTest
+export default TestModeOn

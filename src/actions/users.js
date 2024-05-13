@@ -14,7 +14,6 @@ const saveUser = async ({ user }) => {
 const saveLog = async ({ log }) => {
   try {
     const docRef = await addDoc(collection(db, 'logs'), log)
-    console.log('Log added with ID: ', docRef.id)
     return docRef.id
   } catch (error) {
     console.error('Error adding document: ', error)
