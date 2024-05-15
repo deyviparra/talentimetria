@@ -5,7 +5,7 @@ import { saveLog } from '../../../actions/users'
 export async function POST(request) {
   try {
     const body = await request.json()
-    const { docName, emailTest = '' } = body
+    const { docName, emailTest } = body
     const EMAIL_TO = `henry.ospina@talentimetria.com`
 
     const transporter = nodemailer.createTransport({
