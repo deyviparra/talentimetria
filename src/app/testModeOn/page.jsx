@@ -39,7 +39,6 @@ const TestModeOn = () => {
       const body = {
         docId,
         email: userData.email,
-        emailTest: "deyvi.pr@gmail.com",
       }
       const browserMount = await fetch('/api/mountBrowser', {
         method: 'POST',
@@ -74,7 +73,7 @@ const TestModeOn = () => {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ docName: data.docName }),
+          body: JSON.stringify({ docName: data.docName, emailTest: "deyvi.pr@gmail.com", }),
         })
       }
     } catch (error) {
