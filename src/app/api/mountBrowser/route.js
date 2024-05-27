@@ -1,5 +1,6 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
+export const maxDuration = 60;
 
 export async function POST(request) {
   try {

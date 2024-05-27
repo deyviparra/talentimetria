@@ -1,6 +1,7 @@
 import nodemailer from 'nodemailer'
 import path from 'path'
 import { saveLog } from '../../../actions/users'
+export const maxDuration = 60;
 
 export async function POST(request) {
   try {

@@ -2,6 +2,7 @@ import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
 import path from 'path';
 import { saveLog } from '../../../actions/users'
+export const maxDuration = 60;
 
 export async function POST(request) {
   const body = await request.json()
