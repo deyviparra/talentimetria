@@ -25,27 +25,8 @@ const PrincipalTest = () => {
     try {
       const body = {
         docId,
-        email: userData.email
+        email: userData.email,
       }
-      const browserMount = await fetch('/api/mountBrowser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-      const browserMountData = await browserMount.json()
-      if(!browserMountData.ok){
-        await setTimeout(() => {}, 3000)
-        await fetch('/api/mountBrowser', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        })
-      }
-      await new Promise((resolve) => setTimeout(resolve, 3000))
       const res = await fetch('/api/generateReport', {
         method: 'POST',
         headers: {
@@ -55,35 +36,20 @@ const PrincipalTest = () => {
       })
       const data = await res.json()
       if (res.ok) {
-        fetch('/api/sendReport', {
+        await fetch('/api/sendReport', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({ docName: data.docName }),
         })
+      } else {
+        console.error('Error generating report: ', data)
+        saveLog({ log: { error: JSON.stringify(data), date: new Date() } })
       }
     } catch (error) {
       console.error('Error sending email: ', error)
-      saveLog({ log: { error: JSON.stringify(error), date: new Date() } })
-      await new Promise((resolve) => setTimeout(resolve, 3000))
-      const res = await fetch('/api/generateReport', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-      const data = await res.json()
-      if (res.ok) {
-        fetch('/api/sendReport', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ docName: data.docName }),
-        })
-      }
+      saveLog({ log: { error: error.message, date: new Date() } })
     }
   }
 
@@ -100,7 +66,7 @@ const PrincipalTest = () => {
       router.push(`/result`)
       return 'user added successfully'
     } catch (error) {
-      await saveLog({ log: { error: JSON.stringify(error), date: new Date() } })
+      await saveLog({ log: { error: error.message, date: new Date() } })
       console.error('Error saving user: ', error)
     }
   }

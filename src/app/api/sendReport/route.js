@@ -36,7 +36,7 @@ export async function POST(request) {
 
     return Response.json({ message: 'Email sent' })
   } catch (error) {
-    saveLog({ log: { error: JSON.stringify(error), date: new Date() } })
+    saveLog({ log: { error: error.message, date: new Date() } })
     return Response.json({ message: 'Error sending email', error })
   }
 }

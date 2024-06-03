@@ -1,15 +1,14 @@
 import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
-import path from 'path';
+import path from 'path'
 import { saveLog } from '../../../actions/users'
-export const maxDuration = 60;
+export const maxDuration = 60
 
 export async function POST(request) {
-  const body = await request.json()
-  const URL = request.nextUrl.origin
-
-  const { docId } = body
   try {
+    const body = await request.json()
+    const URL = request.nextUrl.origin
+    const { docId } = body
     const browser = await puppeteer.launch({
       args: [...chromium.args, '--hide-scrollbars', '--disable-web-security'],
       defaultViewport: chromium.defaultViewport,
@@ -52,10 +51,9 @@ export async function POST(request) {
     })
 
     await browser.close()
-
     return Response.json({ message: 'PDF generated', docName: randomName })
   } catch (error) {
-    saveLog({ log: { error: JSON.stringify(error), docId, date: new Date() } })
-    return Response.json({ message: 'Error', error })
+    saveLog({ log: { error: error.message, docId, date: new Date() } })
+    return Response.json({ message: 'Error generating PDF', error })
   }
 }
