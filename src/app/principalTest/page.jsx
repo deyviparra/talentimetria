@@ -35,18 +35,8 @@ const PrincipalTest = () => {
         body: JSON.stringify(body),
       })
       const data = await res.json()
-      if (res.ok) {
-        await fetch('/api/sendReport', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ docName: data.docName }),
-        })
-      } else {
-        console.error('Error generating report: ', data)
-        saveLog({ log: { error: JSON.stringify(data), date: new Date() } })
-      }
+
+      console.log('data: ', JSON.stringify(data))
     } catch (error) {
       console.error('Error sending email: ', error)
       saveLog({ log: { error: error.message, date: new Date() } })

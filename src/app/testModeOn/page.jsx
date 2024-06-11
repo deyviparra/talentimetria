@@ -38,27 +38,8 @@ const TestModeOn = () => {
     try {
       const body = {
         docId,
-        email: userData.email,
+        emailTest: userData.email,
       }
-      const browserMount = await fetch('/api/mountBrowser', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-      const browserMountData = await browserMount.json()
-      if(!browserMountData.ok){
-        await setTimeout(() => {}, 3000)
-        await fetch('/api/mountBrowser', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(body),
-        })
-      }
-      await new Promise((resolve) => setTimeout(resolve, 3000))
       const res = await fetch('/api/generateReport', {
         method: 'POST',
         headers: {
@@ -67,36 +48,11 @@ const TestModeOn = () => {
         body: JSON.stringify(body),
       })
       const data = await res.json()
-      if (res.ok) {
-        fetch('/api/sendReport', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ docName: data.docName, emailTest: "deyvi.pr@gmail.com", }),
-        })
-      }
+
+      console.log('data: ', JSON.stringify(data))
     } catch (error) {
       console.error('Error sending email: ', error)
-      saveLog({ log: { error: JSON.stringify(error), date: new Date() } })
-      await new Promise((resolve) => setTimeout(resolve, 3000))
-      const res = await fetch('/api/generateReport', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(body),
-      })
-      const data = await res.json()
-      if (res.ok) {
-        fetch('/api/sendReport', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ docName: data.docName }),
-        })
-      }
+      saveLog({ log: { error: error.message, date: new Date() } })
     }
   }
 
