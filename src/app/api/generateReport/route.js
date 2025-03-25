@@ -2,8 +2,8 @@ import puppeteer from 'puppeteer-core'
 import chromium from '@sparticuz/chromium-min'
 import path from 'path'
 import { saveLog } from '../../../actions/users'
-import { sendEmailService } from '../../services/email'
-import { getEmailHTML } from '../../utils/email'
+import { sendEmailService } from '../../../services/email'
+import { getEmailHTML } from '../../../utils/email'
 
 export const maxDuration = 60
 
