@@ -69,8 +69,6 @@ export async function POST(request) {
         },
       ],
     )
-
-    console.log('Email sent: %s', info.messageId)
     return Response.json({ message: 'PDF generated', docName: randomName })
   } catch (error) {
     saveLog({ log: { error: error.message, date: new Date() } })
