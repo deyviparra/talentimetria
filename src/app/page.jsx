@@ -20,7 +20,7 @@ export default function Home() {
         <div className={s.blue}></div>
         <div className={s.yellow}></div>
         <div className={s.green}></div>
-        <h1>Bienvenido</h1>
+        <h1>Bienvenid@</h1>
       </div>
     </main>
   )
