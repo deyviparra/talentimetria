@@ -1,10 +1,11 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import s from './page.module.scss'
 import Image from 'next/image'
 import testData from './data.json'
 import { useRouter } from 'next/navigation'
 import { saveUser, saveLog } from '../../actions/users'
+import { completeAssessment } from '../../utils/complete-assessment.mjs'
 
 const TestModeOn = () => {
   const [userData, setUserData] = useState({
@@ -26,6 +27,9 @@ const TestModeOn = () => {
   const [currentQuestion, setCurrentQuestion] = useState({})
   const [progress, setProgress] = useState(100)
   const [loader, setLoader] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const submitting = useRef(false)
+  const attempt = useRef(null)
   const [questionId, setQuestionId] = useState(0)
   const [questionResponse, setQuestionResponse] = useState({
     mas_array: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
@@ -53,24 +57,6 @@ const TestModeOn = () => {
     } catch (error) {
       console.error('Error sending email: ', error)
       saveLog({ log: { error: error.message, date: new Date() } })
-    }
-  }
-
-  const saveUserDB = async (result) => {
-    const userData = JSON.parse(localStorage.getItem('formTalentimetria'))
-    const user = {
-      ...userData,
-      date: new Date(),
-      result,
-    }
-    try {
-      const docId = await saveUser({ user })
-      sendEmail(docId)
-      router.push(`/result`)
-      return 'user added successfully'
-    } catch (error) {
-      await saveLog({ log: { error: JSON.stringify(error), date: new Date() } })
-      console.error('Error saving user: ', error)
     }
   }
 
@@ -137,6 +123,7 @@ const TestModeOn = () => {
               <label htmlFor={option}>{option}</label>
               <input
                 type='radio'
+                disabled={Boolean(attempt.current?.record)}
                 checked={idx + 1 == questionResponse.mas_array[id]}
                 onChange={handleOnChange}
                 name={idx + id}
@@ -145,6 +132,7 @@ const TestModeOn = () => {
               />
               <input
                 type='radio'
+                disabled={Boolean(attempt.current?.record)}
                 checked={idx + 1 == questionResponse.menos_array[id]}
                 onChange={handleOnChange}
                 name={idx + id}
@@ -169,6 +157,7 @@ const TestModeOn = () => {
 
   const handlePrev = () => {
     if (progress > 0) {
+      setSubmitError('')
       const testLength = testData.questions.length
       const progressValue = parseInt(((questionId - 1) / testLength) * 100)
       setProgress(progressValue)
@@ -189,34 +178,45 @@ const TestModeOn = () => {
       setCurrentQuestion(testData.questions[questionId + 1])
       checkButton(questionResponse.mas_array, questionResponse.menos_array, questionId + 1)
     } else {
+      if (submitting.current) return
+      submitting.current = true
+      setSubmitError('')
       setLoader(true)
-      const body = {
-        name_input: userData.name,
-        email_input: userData.email,
-        cedula_input: userData.dni,
-        motivo_input: userData.reason,
-        mas_array: questionResponse.mas_array,
-        menos_array: questionResponse.menos_array,
-        profesion_input: userData.career,
-        pais_input: userData.country,
-        empresa_input: userData.business,
-        edad_input: userData.age,
-      }
-
-      const response = await fetch(ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, DELETE, PUT',
-          'Access-Control-Allow-Headers': 'X-Requested-With, Content-Type, Accept',
-          'Access-control-Allow-Credentials': 'true',
-        },
-        body: JSON.stringify(body),
-      })
-      const data = await response.json()
-      if (response.ok) {
-        saveUserDB(data)
+      try {
+        if (!attempt.current) attempt.current = { id: crypto.randomUUID() }
+        let savedUser
+        try {
+          savedUser = JSON.parse(localStorage.getItem('formTalentimetria'))
+        } catch {
+          throw new Error('No pudimos leer los datos del formulario. Vuelve al inicio para completarlos.')
+        }
+        if (!savedUser?.email) {
+          throw new Error('Faltan los datos del formulario. Vuelve al inicio para completarlos.')
+        }
+        const docId = await completeAssessment({
+          endpoint: ENDPOINT,
+          body: {
+            name_input: userData.name,
+            email_input: userData.email,
+            cedula_input: userData.dni,
+            motivo_input: userData.reason,
+            mas_array: questionResponse.mas_array,
+            menos_array: questionResponse.menos_array,
+            profesion_input: userData.career,
+            pais_input: userData.country,
+            empresa_input: userData.business,
+            edad_input: userData.age,
+          },
+          user: savedUser,
+          attempt: attempt.current,
+          saveUser,
+        })
+        void sendEmail(docId)
+        router.push('/result')
+      } catch (error) {
+        setSubmitError(error.message)
+        setLoader(false)
+        submitting.current = false
       }
     }
   }
@@ -238,8 +238,9 @@ const TestModeOn = () => {
                 columna más y escoja una palabra que menos lo(a) represente y márquela en la columna menos.
               </p>
               <OptionSelector question={currentQuestion} />
+              {submitError && <p role="alert">{submitError}</p>}
               <div className={s.buttons}>
-                {progress !== 0 ? (
+                {progress !== 0 && !attempt.current?.record ? (
                   <button onClick={handlePrev} className={s.back}>
                     Atrás
                   </button>
@@ -250,7 +251,9 @@ const TestModeOn = () => {
                   onClick={handleNext}
                   className={`${s.next} ${disableButton && s.disableButton}`}
                   disabled={disableButton}>
-                  {progress < 96 ? 'Siguiente' : 'Finalizar'}
+                  {questionId < testData.questions.length - 1 && progress < 100
+                    ? 'Siguiente'
+                    : submitError ? 'Reintentar' : 'Finalizar'}
                 </button>
               </div>
               <ProgressBar value={progress} />

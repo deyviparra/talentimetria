@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import s from './page.module.scss'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
@@ -8,7 +8,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis } from 'recharts'
 import { getUser } from '../../actions/users'
 import { useSearchParams } from 'next/navigation'
 
-const Page = () => {
+const PdfResult = () => {
   const [work, setWork] = useState([])
   const [personal, setPersonal] = useState([])
   const [classic, setClassic] = useState([])
@@ -125,4 +125,10 @@ const Page = () => {
     </div>
   )
 }
-export default Page
+export default function Page() {
+  return (
+    <Suspense fallback={null}>
+      <PdfResult />
+    </Suspense>
+  )
+}
