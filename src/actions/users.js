@@ -1,15 +1,17 @@
 'use server'
 import { db } from '../lib/firebase'
-import { collection, getDocs,getDoc, addDoc, doc } from 'firebase/firestore'
+import { collection, getDocs,getDoc, addDoc, doc, runTransaction } from 'firebase/firestore'
 
-const saveUser = async ({ user }) => {
-  try {
-    const docRef = await addDoc(collection(db, 'users'), user)
-    console.log('User added with ID: ', docRef.id)
-    return docRef.id
-  } catch (error) {
-    console.error('Error adding document: ', error)
+const saveUser = async ({ user, attemptId }) => {
+  if (typeof attemptId !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(attemptId)) {
+    throw new Error('Invalid assessment attempt')
   }
+  const docRef = doc(db, 'users', attemptId)
+  await runTransaction(db, async (transaction) => {
+    const existing = await transaction.get(docRef)
+    if (!existing.exists()) transaction.set(docRef, user)
+  })
+  return docRef.id
 }
 const saveLog = async ({ log }) => {
   try {
