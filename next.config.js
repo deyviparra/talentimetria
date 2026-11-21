@@ -2,7 +2,7 @@
 const nextConfig = {
     transpilePackages: ['lucide-react'],
     experimental: {
-        serverComponentsExternalPackages: ["puppeteer-core"],
+        serverComponentsExternalPackages: ["puppeteer-core", "@sparticuz/chromium-min"],
     },
 }
 

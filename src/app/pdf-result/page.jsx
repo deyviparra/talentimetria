@@ -60,7 +60,7 @@ const PdfResult = () => {
           {/* <CartesianGrid strokeDasharray='3 3' /> */}
           <XAxis dataKey='name' />
           <YAxis />
-          <Bar dataKey='uv' fill='#8884d8' label={{ position: 'top', fontSize: '20px' }}>
+          <Bar isAnimationActive={false} dataKey='uv' fill='#8884d8' label={{ position: 'top', fontSize: '20px' }}>
             {data.map((entry, index) => (
               <Cell key={`cell-${index}`} fill={colors[index % 20]} />
             ))}
@@ -81,7 +81,8 @@ const PdfResult = () => {
   }
 
   return (
-    <div className={s.container}>
+    <div className={s.container} data-report-ready={Boolean(user?.name?.trim() && result?.pattern?.title &&
+      [work, personal, classic].every(series => series.length === 4 && series.every(item => Number.isFinite(item.uv))))}>
       <Image src='/logo.png' alt='logo' width={250} height={50} />
       <br />
       <br />
